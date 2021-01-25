@@ -87,12 +87,12 @@ Use the finalScore function below to do the following:
 */ 
 
 function finalScore(cbFunction, inningsPlayed){
-  let homeScore = 0
-  let awayScore = 0
+  let homeScore = 0;
+  let awayScore = 0;
   for(let i = 0; i < inningsPlayed; i++){
     homeScore = homeScore + cbFunction()
     awayScore = awayScore + cbFunction()
-  }
+  };
   return {
     Home: homeScore,
     Away: awayScore
@@ -108,10 +108,8 @@ function getInningScore(cbFunction) {
   return {
     Home: cbFunction(),
     Away: cbFunction()
-  }
+  };
 }
-
-console.log(getInningScore(inning))
 
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
 Use the scoreboard function below to do the following:
@@ -154,12 +152,25 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScoreCB, inningCB, inningsPlayed) {
+  const completeScoreboard = [];
+  let homeScore = 0;
+  let awayScore = 0;
+  for(let i = 0; i < inningsPlayed; i++){
+    let currentInning = getInningScoreCB(inningCB);
+    homeScore = homeScore + currentInning.Home;
+    awayScore = awayScore + currentInning.Away;
+    completeScoreboard.push(`Inning ${i + 1}: Away ${currentInning.Away} - Home ${currentInning.Home}`);
+  }
+  if(homeScore === awayScore){
+    completeScoreboard.push(`This game will require extra innings: Away ${awayScore} - Home ${homeScore}`);
+  }else{
+    completeScoreboard.push(`Final score: Away ${awayScore} - Home ${homeScore}`);
+  }
+  return completeScoreboard;
 }
 
-
-
+console.log(scoreboard(getInningScore, inning, 9));
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
 function foo(){
